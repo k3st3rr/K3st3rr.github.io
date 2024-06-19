@@ -3,20 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Media Tracker</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Блокнот</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Media Tracker</h1>
-        <nav>
-            <ul>
-                <li><a href="books.html">Книги</a></li>
-                <li><a href="movies.html">Фильмы</a></li>
-                <li><a href="anime.html">Аниме</a></li>
-                <li><a href="manga.html">Манга</a></li>
-            </ul>
-        </nav>
+    <div class="tabs">
+        <button class="tab-button" onclick="openTab('films')">Фильмы</button>
+        <button class="tab-button" onclick="openTab('books')">Книги</button>
+        <button class="tab-button" onclick="openTab('anime')">Аниме</button>
+        <button class="tab-button" onclick="openTab('manga')">Манга</button>
     </div>
+    
+    <div id="films" class="tab-content">
+        <h2>Фильмы</h2>
+        <textarea id="filmsTextArea" placeholder="Ваши заметки..."></textarea>
+        <button onclick="saveNotes('films')">Сохранить</button>
+    </div>
+    
+    <div id="books" class="tab-content">
+        <h2>Книги</h2>
+        <textarea id="booksTextArea" placeholder="Ваши заметки..."></textarea>
+        <button onclick="saveNotes('books')">Сохранить</button>
+    </div>
+    
+    <div id="anime" class="tab-content">
+        <h2>Аниме</h2>
+        <textarea id="animeTextArea" placeholder="Ваши заметки..."></textarea>
+        <button onclick="saveNotes('anime')">Сохранить</button>
+    </div>
+    
+    <div id="manga" class="tab-content">
+        <h2>Манга</h2>
+        <textarea id="mangaTextArea" placeholder="Ваши заметки..."></textarea>
+        <button onclick="saveNotes('manga')">Сохранить</button>
+    </div>
+    
+    <script src="script.js"></script>
 </body>
 </html>
