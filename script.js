@@ -13,3 +13,17 @@ function addMedia(type) {
         mediaList.push(title);
         localStorage.setItem(type, JSON.stringify(mediaList));
         loadMediaList(type);
+        input.value = '';
+    }
+}
+
+function loadMediaList(type) {
+    const mediaList = JSON.parse(localStorage.getItem(type)) || [];
+    const listElement = document.getElementById(`${type}-list`);
+    listElement.innerHTML = '';
+    mediaList.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        listElement.appendChild(li);
+    });
+}
