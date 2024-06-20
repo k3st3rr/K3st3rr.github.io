@@ -7,7 +7,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #e1fcff;
+            background-color: #F19CBB;
+            transition: background-color 0.3s ease;
         }
         nav {
             display: flex;
@@ -17,27 +18,31 @@
             border-radius: 10px;
             margin: 20px auto;
             width: 80%;
+            transition: background-color 0.3s ease;
         }
         nav a {
             color: white;
             text-decoration: none;
             padding: 0.5em 1em;
             border-radius: 5px;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
         nav a:hover {
             background-color: #575757;
+            transform: scale(1.05);
         }
         .content {
             display: none;
             padding: 2em;
-            background-color: 	white;
+            background-color: white;
             border-radius: 10px;
             margin: 20px auto;
             width: 80%;
+            transition: opacity 0.5s ease;
         }
         .active {
             display: block;
+            opacity: 1;
         }
         table {
             width: 100%;
@@ -73,6 +78,11 @@
             border: none;
             cursor: pointer;
             border-radius: 5px; /* Скругленные углы */
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .toggle-button:hover {
+            background-color: #bbb;
+            transform: scale(1.05);
         }
         .slider {
             position: relative;
@@ -104,57 +114,103 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .slider-nav button:hover {
+            background-color: #bbb;
+            transform: scale(1.05);
         }
         .slide-number {
             text-align: center;
             margin-top: 1em;
+            font-size: 1.2em;
         }
-      
+        .indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+        .indicator.active {
+            background-color: #333;
+        }
         .pouring {
-    font-size: 40px;
-    line-height: 50px;
-    font-family: Verdana, sans-serif;
-    font-weight: 900;
-    position: relative;
-    background: white;
-    overflow: hidden;
-    text-transform: uppercase;
-    text-align: center;
-}
-.pouring:before {
-    content: '';
-    position: absolute;
-    filter: blur(10px);
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    mix-blend-mode: screen;
-    background-image: repeating-linear-gradient(-45deg, transparent, transparent 1em, #F8F4FF 1em, #cdc8ff 50%), repeating-linear-gradient(45deg, #cdc8ff, #cdc8ff 1em, #FFF 1em, #F8F4FF 50%);
-    background-size: 3em 3em, 2em 2em;
-    animation-name: ani;
-    animation-duration: 10s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-@keyframes ani {
-    from {
-        background-position: 0 0;
-    }
-    to {
-        background-position: 100% 0;
-    }
-}
-@media (max-width:690px) {    
-    .pouring {font-size: 20px;}    
-}
+            font-size: 40px;
+            line-height: 50px;
+            font-family: Verdana, sans-serif;
+            font-weight: 900;
+            position: relative;
+            background: white;
+            overflow: hidden;
+            text-transform: uppercase;
+            text-align: center;
+        }
+        .pouring:before {
+            content: '';
+            position: absolute;
+            filter: blur(10px);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            mix-blend-mode: screen;
+            background-image: repeating-linear-gradient(-45deg, transparent, transparent 1em, #F8F4FF 1em, #C7A8FF 50%), repeating-linear-gradient(45deg, #C7A8FF, #C7A8FF 1em, #FFF 1em, #F8F4FF 50%);
+            background-size: 3em 3em, 2em 2em;
+            animation-name: ani;
+            animation-duration: 10s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+        @keyframes ani {
+            from {
+                background-position: 0 0;
+            }
+            to {
+                background-position: 100% 0;
+            }
+        }
+        @media (max-width:690px) {    
+            .pouring {font-size: 20px;}    
+        }
         .tabs * {
-    box-sizing: border-box;
-}        
+            box-sizing: border-box;
+        }
+        .toggle-theme {
+            position: fixed;
+            top: 1em;
+            right: 1em;
+            padding: 0.5em 1em;
+            background-color: #D3D3D3;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .toggle-theme:hover {
+            background-color: #bbb;
+        }
+        .dark-mode {
+            background-color: #333;
+            color: #f9f9f9;
+        }
+        .dark-mode nav {
+            background-color: #444;
+        }
+        .dark-mode .content {
+            background-color: #444;
+        }
+        .dark-mode .slider-nav button, .dark-mode .toggle-button {
+            background-color: #555;
+        }
     </style>
 </head>
 <body>
+    <button class="toggle-theme" onclick="toggleTheme()">Темная тема</button>
+
     <nav>
         <a href="#" onclick="showContent('about')">Обо мне</a>
         <a href="#" onclick="showContent('books')">Книги</a>
@@ -163,25 +219,14 @@
         <a href="#" onclick="showContent('manga')">Манга</a>
     </nav>
 
-    <div class="content" id="about">	
-      <div class="pouring">Обо мне</div>
-         <p>Добро пожаловать на мой сайт! Здесь вы найдете информацию о моих любимых книгах, фильмах, аниме и манге.</p>
+    <div class="content" id="about">  
+        <div class="pouring">Обо мне</div>
+        <p>Добро пожаловать на мой сайт! Здесь вы найдете информацию о моих любимых книгах, фильмах, аниме и манге.</p>
         <div class="slider" id="slider">
             <div class="slides">
                 <div class="slide">Книги</div>
                 <div class="slide">Фильмы</div>
-                <div class="slide">
-                    <h2>Аниме</h2>
-                    10: Шедевр, нечто поистине исключительное. Хотя ничто не может быть "идеальным" само по себе, для меня эти серии близки к этому, и именно они привлекли меня больше всего. Не могу сказать, что у меня есть конкретные критерии для 10, но я глубоко уважаю сериалы, которые могут достичь такого рейтинга, поскольку они определенно считаются хорошо построенными и способными затронуть меня на эмоциональном уровне.
-9: Превосходно, и определенно серия, которую я считаю невероятно удивительной. Хотя для меня это не 10 баллов, я очень ценю эти сериалы и обязательно расскажу о них в тот или иной момент. Определенно дайте им шанс, если у вас будет такая возможность.
-8: Очень хорошие, обязательные к просмотру истории. Это исключительные серии, которые доставляют огромное удовольствие. Возможно, у них есть несколько незначительных проблем, но все равно это очень приятные тайтлы, которые могут многое предложить.
-7: Хорошо, определенно стоит посмотреть. Эти сериалы могут спотыкаться то тут, то там, они далеки от совершенства, но они все равно могут предложить что-то ценное и их стоит попробовать. Оцененные рейтингом 7/10 и выше - это те, которые понравились мне настолько, что я думаю о повторном просмотре.
-6: Приличные, все еще нравятся, но страдают от большего количества проблем. Большинство из них имеют определенную ценность, но также имеют серьезные недостатки, которые не позволяют им раскрыть свой потенциал.
-5: Так себе, в целом не запоминаются или имеют недостатки. Это те, которые начинают попадать в категорию "а может бросить", и хотя нельзя сказать, что они мне совсем не нравятся, просто они оказались неспособными произвести на меня особое впечатление.
-4: Не очень хорошо, определенно движется в неправильном направлении. Это те серии, с которыми у меня явные проблемы, и я, вероятно, буду жаловаться на них, если они будут обсуждаться. Возможно, у них есть несколько достоинств и они не совсем бесполезны, но в целом у них больше отрицательных моментов, чем положительных.
-3: Слабо, имеет мало искупительных качеств и в целом является пустой тратой времени.
-1 и 2: Это сериалы, которые отличились графикой, озвучкой и сюжетом в ужасном свете настолько, что смогли вызвать только отвращение и огромное желание прекратить просмотр.
-                </div>
+                <div class="slide">Аниме</div>
                 <div class="slide">Манга</div>
             </div>
             <div class="slider-nav">
@@ -189,34 +234,18 @@
                 <button onclick="moveSlide(1)">&#10095;</button>
             </div>
             <div class="slide-number" id="slide-number">Книги</div>
-        </div> 
+            <div class="indicators">
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+            </div>
+        </div>
     </div>
 
     <div class="content" id="books">
         <div class="pouring">Книги</div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Название</th>
-                    <th>Автор</th>
-                    <th>Оценка</th>
-                    <th>Отзыв</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Сколько стоит человек</td>
-                    <td>Евфросиния Керсновская</td>
-                    <td>85</td>
-                    <td>
-                        <button class="toggle-button" onclick="toggleReview(this)">Показать/Скрыть отзыв</button>
-                        <div class="review">
-                            Это замечательная книга, которая рассказывает о трудных жизненных испытаниях и силе человеческого духа.
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <p>Моя любимая книга - "Мастер и Маргарита".</p>
     </div>
 
     <div class="content" id="movies">
@@ -225,28 +254,23 @@
             <thead>
                 <tr>
                     <th>Название</th>
-                    <th>Режисер</th>
-                    <th>Длительность, мин</th>
-                    <th>Оценка</th>
-                    <th>Отзыв</th>
+                    <th>Режиссер</th>
+                    <th>Год</th>
+                    <th>Жанр</th>
+                    <th>Обзор</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Сонная Лощина</td>
-                    <td>Тим Бёртон</td>
-                    <td>105</td>
-                    <td>63</td>
-                    <td>
-                        <button class="toggle-button" onclick="toggleReview(this)">Показать/Скрыть отзыв</button>
+                    <td>Властелин колец</td>
+                    <td>Питер Джексон</td>
+                    <td>2001</td>
+                    <td>Фэнтези</td>
+                    <td><button class="toggle-button" onclick="toggleReview(this)">Читать обзор</button>
                         <div class="review">
-                            <p>События фильма происходят в тихом городке, где царит атмосфера таинственности и мистики. Мрачные декорации, готические пейзажи и зловещие звуки как нельзя лучше дополняют захватывающую историю, окутанную пеленой секретов.</p> 
-  
-<p>Одним из главных украшений картины является игра всеми любимого актера - Джонни Деппа. Его персонаж, эксцентричный констебль Икабод Крейн, запоминается с первых кадров. Деппу мастерски удалось передать все грани характера своего героя: его  скептицизм, трусость, но в то же время смелость и решимость. За самим персонажем интересно наблюдать. Особо хочется отметить сцену, где Икабод Крейн, будучи бесстрашным борцом, панически боится обыкновенного паука. Этот комичный эпизод не только разбавляет мрачную атмосферу фильма, но и приземляет героя в глазах зрителя, показывая, что, несмотря ни на что, он  все-таки обычный человек и это несомненно удерживает внимание.</p> 
-   
-  
-<p>Несмотря на захватывающий сюжет и великолепную игру актеров, фильм, как мне показалось, имеет один достаточно весомый недостаток. А именно сухие диалоги между героями, с эмоциональной точки зрения. Они не зацепили меня за живое, не хотелось переживать за героев, не пробивало на эмоции. Тем не менее, это не помешало с увлечением наслаждаться историей до самого конца.</p> 
-   
+                            <p>Фильм о приключениях хоббита Фродо и его друзей в Средиземье.</p> 
+                            <p> 
+                                Несмотря на захватывающий сюжет и великолепную игру актеров, фильм, как мне показалось, имеет один достаточно весомый недостаток. А именно сухие диалоги между героями, с эмоциональной точки зрения. Они не зацепили меня за живое, не хотелось переживать за героев, не пробивало на эмоции. Тем не менее, это не помешало с увлечением наслаждаться историей до самого конца.</p>
                         </div>
                     </td>
                 </tr>
@@ -263,7 +287,6 @@
         <div class="pouring">Манга</div>
         <p>Здесь будет манга.</p>
     </div>
-
 
     <script>
         let currentSlide = 0;
@@ -287,6 +310,7 @@
             const offset = -currentSlide * 100;
             slides.style.transform = `translateX(${offset}%)`;
             updateSlideNumber();
+            updateIndicators();
         }
 
         function updateSlideNumber() {
@@ -294,9 +318,21 @@
             slideNumber.textContent = slideNames[currentSlide];
         }
 
+        function updateIndicators() {
+            const indicators = document.querySelectorAll('.indicator');
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+        }
+
         // Initialize the default tab
         showContent('about');
         updateSlideNumber();
+        updateIndicators();
     </script>
 </body>
 </html>
