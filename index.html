@@ -59,11 +59,17 @@
 </head>
 <body>
     <nav>
+        <a href="#" onclick="showContent('about')">Обо мне</a>
         <a href="#" onclick="showContent('books')">Книги</a>
         <a href="#" onclick="showContent('movies')">Фильмы</a>
         <a href="#" onclick="showContent('anime')">Аниме</a>
         <a href="#" onclick="showContent('manga')">Манга</a>
     </nav>
+
+    <div class="content" id="about">
+        <h2>Обо мне</h2>
+        <p>Добро пожаловать на мой сайт! Здесь вы найдете информацию о моих любимых книгах, фильмах, аниме и манге.</p>
+    </div>
 
     <div class="content" id="books">
         <h2>Книги</h2>
@@ -126,7 +132,7 @@
         }
 
         // Initialize the default tab
-        showContent('books');
+        showContent('about');
     </script>
 </body>
 </html>
