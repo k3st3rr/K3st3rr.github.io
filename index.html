@@ -23,7 +23,11 @@
             background-color: #575757;
         }
         .content {
+            display: none;
             padding: 2em;
+        }
+        .active {
+            display: block;
         }
         table {
             width: 100%;
@@ -55,10 +59,10 @@
 </head>
 <body>
     <nav>
-        <a href="#books">Книги</a>
-        <a href="#movies">Фильмы</a>
-        <a href="#anime">Аниме</a>
-        <a href="#manga">Манга</a>
+        <a href="#" onclick="showContent('books')">Книги</a>
+        <a href="#" onclick="showContent('movies')">Фильмы</a>
+        <a href="#" onclick="showContent('anime')">Аниме</a>
+        <a href="#" onclick="showContent('manga')">Манга</a>
     </nav>
 
     <div class="content" id="books">
@@ -78,7 +82,7 @@
                     <td>Евфросиния Керсновская</td>
                     <td>4</td>
                     <td>
-                        <button class="toggle-button" onclick="toggleReview()">Показать/Скрыть отзыв</button>
+                        <button class="toggle-button" onclick="toggleReview(this)">Показать/Скрыть отзыв</button>
                         <div class="review">
                             Это замечательная книга, которая рассказывает о трудных жизненных испытаниях и силе человеческого духа.
                         </div>
@@ -104,14 +108,25 @@
     </div>
 
     <script>
-        function toggleReview() {
-            var review = document.querySelector('.review');
+        function showContent(id) {
+            var contents = document.querySelectorAll('.content');
+            contents.forEach(function(content) {
+                content.classList.remove('active');
+            });
+            document.getElementById(id).classList.add('active');
+        }
+
+        function toggleReview(button) {
+            var review = button.nextElementSibling;
             if (review.style.display === 'none' || review.style.display === '') {
                 review.style.display = 'block';
             } else {
                 review.style.display = 'none';
             }
         }
+
+        // Initialize the default tab
+        showContent('books');
     </script>
 </body>
 </html>
