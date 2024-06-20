@@ -3,41 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Блокнот</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Мой сайт</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #333;
+            padding: 1em;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5em 1em;
+        }
+        nav a:hover {
+            background-color: #575757;
+        }
+        .content {
+            padding: 2em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 1em;
+            text-align: left;
+        }
+        .review {
+            display: none;
+            margin-top: 1em;
+            padding: 1em;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+        .toggle-button {
+            margin-top: 1em;
+            padding: 0.5em 1em;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <div class="tabs">
-        <button class="tab-button" onclick="openTab('films')">Фильмы</button>
-        <button class="tab-button" onclick="openTab('books')">Книги</button>
-        <button class="tab-button" onclick="openTab('anime')">Аниме</button>
-        <button class="tab-button" onclick="openTab('manga')">Манга</button>
-    </div>
-    
-    <div id="films" class="tab-content">
-        <h2>Фильмы</h2>
-        <textarea id="filmsTextArea" placeholder="Ваши заметки..."></textarea>
-        <button onclick="saveNotes('films')">Сохранить</button>
-    </div>
-    
-    <div id="books" class="tab-content">
+    <nav>
+        <a href="#books">Книги</a>
+        <a href="#movies">Фильмы</a>
+        <a href="#anime">Аниме</a>
+        <a href="#manga">Манга</a>
+    </nav>
+
+    <div class="content" id="books">
         <h2>Книги</h2>
-        <textarea id="booksTextArea" placeholder="Ваши заметки..."></textarea>
-        <button onclick="saveNotes('books')">Сохранить</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Автор</th>
+                    <th>Оценка</th>
+                    <th>Отзыв</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Сколько стоит человек</td>
+                    <td>Евфросиния Керсновская</td>
+                    <td>4</td>
+                    <td>
+                        <button class="toggle-button" onclick="toggleReview()">Показать/Скрыть отзыв</button>
+                        <div class="review">
+                            Это замечательная книга, которая рассказывает о трудных жизненных испытаниях и силе человеческого духа.
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    
-    <div id="anime" class="tab-content">
+
+    <div class="content" id="movies">
+        <h2>Фильмы</h2>
+        <p>Здесь будут фильмы.</p>
+    </div>
+
+    <div class="content" id="anime">
         <h2>Аниме</h2>
-        <textarea id="animeTextArea" placeholder="Ваши заметки..."></textarea>
-        <button onclick="saveNotes('anime')">Сохранить</button>
+        <p>Здесь будет аниме.</p>
     </div>
-    
-    <div id="manga" class="tab-content">
+
+    <div class="content" id="manga">
         <h2>Манга</h2>
-        <textarea id="mangaTextArea" placeholder="Ваши заметки..."></textarea>
-        <button onclick="saveNotes('manga')">Сохранить</button>
+        <p>Здесь будет манга.</p>
     </div>
-    
-    <script src="script.js"></script>
+
+    <script>
+        function toggleReview() {
+            var review = document.querySelector('.review');
+            if (review.style.display === 'none' || review.style.display === '') {
+                review.style.display = 'block';
+            } else {
+                review.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>
