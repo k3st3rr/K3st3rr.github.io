@@ -7,6 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #F19CBB;
         }
         nav {
             display: flex;
@@ -30,6 +31,10 @@
         .content {
             display: none;
             padding: 2em;
+            background-color: white;
+            border-radius: 10px;
+            margin: 20px auto;
+            width: 80%;
         }
         .active {
             display: block;
@@ -37,13 +42,21 @@
         table {
             width: 100%;
             border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
         }
         table, th, td {
-            border: 1px solid black;
+            border: 1px solid #ddd;
         }
         th, td {
             padding: 1em;
             text-align: left;
+        }
+        th {
+            background-color: #f5f5f5;
+        }
+        td {
+            background-color: #FFE4E1;
         }
         .review {
             display: none;
@@ -60,6 +73,22 @@
             border: none;
             cursor: pointer;
         }
+        .rating-table {
+            margin-top: 1em;
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .rating-table th, .rating-table td {
+            border: 1px solid #ddd;
+            padding: 0.5em;
+            text-align: center;
+            background-color: #FFE4E1;
+        }
+        .rating-table th {
+            background-color: #f5f5f5;
+        }
     </style>
 </head>
 <body>
@@ -74,6 +103,33 @@
     <div class="content" id="about">
         <h2>Обо мне</h2>
         <p>Добро пожаловать на мой сайт! Здесь вы найдете информацию о моих любимых книгах, фильмах, аниме и манге.</p>
+        <h3>Система оценок</h3>
+        <table class="rating-table">
+            <thead>
+                <tr>
+                    <th>Категория</th>
+                    <th>Оценка</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Книги</td>
+                    <td>85</td>
+                </tr>
+                <tr>
+                    <td>Фильмы</td>
+                    <td>90</td>
+                </tr>
+                <tr>
+                    <td>Аниме</td>
+                    <td>75</td>
+                </tr>
+                <tr>
+                    <td>Манга</td>
+                    <td>80</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <div class="content" id="books">
@@ -91,7 +147,7 @@
                 <tr>
                     <td>Сколько стоит человек</td>
                     <td>Евфросиния Керсновская</td>
-                    <td>4</td>
+                    <td>85</td>
                     <td>
                         <button class="toggle-button" onclick="toggleReview(this)">Показать/Скрыть отзыв</button>
                         <div class="review">
