@@ -105,6 +105,10 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        .slide-number {
+            text-align: center;
+            margin-top: 1em;
+        }
       
         .pouring {
     font-size: 40px;
@@ -183,6 +187,7 @@
                 <button onclick="moveSlide(-1)">&#10094;</button>
                 <button onclick="moveSlide(1)">&#10095;</button>
             </div>
+            <div class="slide-number" id="slide-number">Страница: 1</div>
         </div> 
     </div>
 
@@ -279,10 +284,17 @@
             currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
             const offset = -currentSlide * 100;
             slides.style.transform = `translateX(${offset}%)`;
+            updateSlideNumber();
+        }
+
+        function updateSlideNumber() {
+            const slideNumber = document.getElementById('slide-number');
+            slideNumber.textContent = `Страница: ${currentSlide + 1}`;
         }
 
         // Initialize the default tab
         showContent('about');
+        updateSlideNumber();
     </script>
 </body>
 </html>
